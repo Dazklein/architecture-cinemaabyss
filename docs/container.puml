@@ -1,0 +1,47 @@
+﻿@startuml
+
+!include <C4/C4_Container>
+
+System_Ext(externalPaymentSystem, "Payment System")
+System_Ext(externalRecommendationSystem, "Recommendation System")
+
+System_Boundary(bound, "Cinemaabyss") {
+    Container(userService, "Users Service")
+    Container(paymentService, "Payments Service")
+    Container(videoService, "Videos Service")
+    Container(subscriptionService, "Subscriptions Service")
+    Container(discountService, "Discount Service")
+    Container(movieService, "Movie Service")
+    
+    
+    ContainerDb(userDb, "Users DB")
+    ContainerDb(paymentDb, "Payments DB")
+    ContainerDb(videoDb, "Videos DB")
+    ContainerDb(subscriptionDb, "Subscriptions DB")
+    ContainerDb(discountDb, "Discount DB")
+    ContainerDb(movieDb, "Movie DB")
+    
+    ContainerQueue(kafka, "Kafka")
+    
+    Rel(userService, userDb, "")
+    Rel(paymentService, paymentDb, "")
+    Rel(videoService, videoDb, "")
+    Rel(subscriptionService, subscriptionDb, "")
+    Rel(discountService, discountDb, "")
+    Rel(movieService, movieDb, "")
+    
+    Rel(kafka, movieService, "")
+    Rel(movieService, videoService, "")
+    
+    Rel(userService, subscriptionService, "")
+    Rel(subscriptionService, discountService, "")
+    Rel(userService, movieService, "")
+    Rel(subscriptionService, paymentService, "")
+    
+}
+
+Rel(paymentService, externalPaymentSystem, "")
+Rel(externalRecommendationSystem, kafka, "")
+
+
+@enduml
