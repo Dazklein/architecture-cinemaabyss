@@ -9,7 +9,7 @@ System_Boundary(bound, "Cinemaabyss") {
     Container(userService, "Users Service")
     Container(paymentService, "Payments Service")
     Container(videoService, "Videos Service")
-    Container(subscriptionService, "Subscriptions Service")
+    Container(eventsService, "Events Service")
     Container(discountService, "Discount Service")
     Container(movieService, "Movie Service")
     
@@ -17,7 +17,7 @@ System_Boundary(bound, "Cinemaabyss") {
     ContainerDb(userDb, "Users DB")
     ContainerDb(paymentDb, "Payments DB")
     ContainerDb(videoDb, "Videos DB")
-    ContainerDb(subscriptionDb, "Subscriptions DB")
+    ContainerDb(subscriptionDb, "Events DB")
     ContainerDb(discountDb, "Discount DB")
     ContainerDb(movieDb, "Movie DB")
     
@@ -26,17 +26,17 @@ System_Boundary(bound, "Cinemaabyss") {
     Rel(userService, userDb, "")
     Rel(paymentService, paymentDb, "")
     Rel(videoService, videoDb, "")
-    Rel(subscriptionService, subscriptionDb, "")
+    Rel(eventsService, subscriptionDb, "")
     Rel(discountService, discountDb, "")
     Rel(movieService, movieDb, "")
     
     Rel(kafka, movieService, "")
     Rel(movieService, videoService, "")
     
-    Rel(userService, subscriptionService, "")
-    Rel(subscriptionService, discountService, "")
+    Rel(userService, eventsService, "")
+    Rel(eventsService, discountService, "")
     Rel(userService, movieService, "")
-    Rel(subscriptionService, paymentService, "")
+    Rel(eventsService, paymentService, "")
     
 }
 
