@@ -45,7 +45,7 @@ public class Consumer : BackgroundService
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.LogError(e, "Error consume message");
                 await Task.Delay(3000, cancellationToken);
             }
         }
