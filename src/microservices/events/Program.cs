@@ -6,7 +6,7 @@ builder.Logging.AddConsole();
 
 builder.Services.AddScoped<Producer>();
 
-//builder.Services.AddHostedService<Consumer>();
+builder.Services.AddHostedService<Consumer>();
 
 var app = builder.Build();
 
