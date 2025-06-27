@@ -21,8 +21,8 @@ public class Consumer : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation("Consumer running at: {time}", DateTimeOffset.Now);
-        await Consume(stoppingToken);
-        _logger.LogInformation("Consumer stopped at: {time}", DateTimeOffset.Now);
+        await Task.Run(() => Consume(stoppingToken), stoppingToken);
+        _logger.LogInformation("debug {time}", DateTimeOffset.Now);
     }
 
     public async Task Consume(CancellationToken cancellationToken)
