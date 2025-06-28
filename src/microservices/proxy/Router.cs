@@ -31,20 +31,23 @@ public class Router
         Uri? uri = null;
         if (gradualMigrationFlag)
         {
+			var isMicroservices = false;
             if (urlStr.Contains("movies", StringComparison.OrdinalIgnoreCase))
             {
                 var puri = new Uri(moviesUrl);
                 ub.Host = puri.Host;
                 ub.Port = puri.Port;
+				isMicroservices = true;
             }
             if (urlStr.Contains("events", StringComparison.OrdinalIgnoreCase))
             {
                 var puri = new Uri(eventsUrl);
                 ub.Host = puri.Host;
                 ub.Port = puri.Port;
+				isMicroservices = true;
             }
 
-            if (Random.Shared.Next(0, 100) <= percent)
+            if (isMicroservices && Random.Shared.Next(0, 100) <= percent)
             {
                 uri = ub.Uri;
             }
@@ -56,6 +59,13 @@ public class Router
                 uri = ub.Uri;
             }
         }
+		else
+		{
+			var puri = new Uri(monolithUrl);
+            ub.Host = puri.Host;
+            ub.Port = puri.Port;
+            uri = ub.Uri;
+		}
 
         return await SendRequest(request, uri);
     }
